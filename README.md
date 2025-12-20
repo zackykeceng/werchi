@@ -49,3 +49,57 @@ These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](ht
 ```bash
 cosign verify --key cosign.pub ghcr.io/develmusa/werchi
 ```
+
+## Usage
+
+
+### Installation on bare metal
+
+#### Manual Partitioning Instructions
+
+1.  Select `Installation Destination`
+2.  Select `Advanced Custom (Blivet-GUI)` under `Storage Configuration`.
+3.  Create the following partitions and devices:
+
+    -   **EFI Partition**
+        -   Mount point: `/boot/efi`
+        -   Format: `EFI system partition`
+        -   Size: `1GB`
+
+    -   **Boot Partition**
+        -   Mount point: `/boot`
+        -   Format: `ext4`
+        -   Size: `2GB`
+
+    -   **BTRFS Partition**
+        -   Format: `btrfs`
+        -   Size: `[max]`
+
+    -   **/ Subvolume**
+        -   Mount point: `/`
+        -   Format: `btrfs (subvolume)`
+        -   Encrypt: `yes`
+
+    -   **/var Subvolume**
+        -   Mount point: `/var`
+        -   Format: `btrfs (subvolume)`
+
+    -   **/var/home Subvolume**
+        -   Mount point: `/var/home`
+        -   Format: `btrfs (subvolume)`
+
+### Develop
+
+Local for faster Build:
+https://blue-build.org/how-to/local/
+
+```
+bluebuild switch ./recipes/recipe.yml --reboot
+```
+
+
+#### Examples
+
+- [fiftydinar/gidro-os: My personalized custom OS image.](https://github.com/fiftydinar/gidro-os)
+
+- [aurora/build_files at main · ublue-os/aurora](https://github.com/ublue-os/aurora/tree/main/build_files)
