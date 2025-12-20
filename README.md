@@ -34,8 +34,12 @@ The `latest` tag will automatically point to the latest build. That build will s
 
 If build on Fedora Atomic, you can generate an offline ISO with the instructions available [here](https://blue-build.org/learn/universal-blue/#fresh-install-from-an-iso). These ISOs cannot unfortunately be distributed on GitHub for free due to large sizes, so for public projects something else has to be used for hosting.
 
+### Generate ISO
+
+Must be done on a fedora atomic host or inside a container with the proper packages installed.
+
 ```bash
-sudo bluebuild generate-iso --iso-name weird-os.iso image ghcr.io/develmusa/werchi:latest
+sudo bluebuild generate-iso --iso-name werchi.iso image ghcr.io/develmusa/werchi:latest
 ```
 
 ## Verification
